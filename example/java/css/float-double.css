@@ -1,25 +1,23 @@
 body {
   padding-top: 50px;
 }
-.starter-template {
-  padding: 40px 15px;
-}
-td{
-  width:10px;
-  height:15px;
-  border:1px solid black;
-  color:red;
-  font-weight:bold;
-}
 .bitsBoard{
   border:1px solid black;
+  table-layout:fixed;
+  width: 100%;
 }
 .sign{
   background:#ececb7;
+  border:1px solid black;
+  font-weight:bold;
 }
 .exponent{
   background:#c0ecc0;
+  border:1px solid black;
+  font-weight:bold;
 }
 .fraction{
   background:#a9a9f3;
+  border:1px solid black;
+  font-weight:bold;
 }

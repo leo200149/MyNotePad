@@ -20,87 +20,157 @@
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
-                <a class="navbar-brand" href="https://github.com/leo200149/MyNotePad">筆記範例</a>
+                <a class="navbar-brand" href="https://github.com/leo200149/MyNotePad" target="_blank">筆記範例</a>
             </div>
         </div>
     </nav>
 
     <div class="container">
-        <div class="starter-template">
-            <h1>Java 浮點數格式及精度</h1>
-            <div>
-                <h2>浮點小數表示法</h2>
-                <p>十進位51.25 = 二進位10011.01</p>
-                <p>二進位10011.01 以浮點小數表示法表示為 1.001101 * 2^5</p>
-                <p>二進位首碼必定為1，故可省略不記，計算時在補上。</p>
-                <p>1.001101省略首碼後 => 得到尾數為001101。</p>
-                <p>1.001101 * 2^5 => 得到指數為5。</p>
-            </div>
-            <div id="floatBoard">
-                <h2>Float(4 Byte = 32 bit)32位元單精度</h2>
-                <table class="bitsBoard">
-                    <thead>
-                        <th colspan="1" class="sign">Sign(1)</th>
-                        <th colspan="8" class="exponent">Exponent(8)</th>
-                        <th colspan="23" class="fraction">Fraction(23)</th>
-                    </thead>
-                </table>
-                <p>sign(符號):0為正，1為負。</p>
-                <p>exponent(指數):範圍1~254(0,255為特殊值)，分正負 以127為0，故最小值為-126、最大值為127。</p>
-                <p>fraction(尾數):二進位首碼必定為1，可省略不記，故可記錄最大值為2^24，精度為log(2^24)=7位數。</p>
-                <div>
-                    <div>
-                        <label>輸入數字:</label>
-                        <input type="text" class="numberInput" style="width:300px;" />
-                        <input type="button" class="toBinaryBtn" value="轉換" />
+        <h1>Java 浮點數格式及精度</h1>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h2 class="panel-title">參考資料</h2>
                     </div>
-                    <div>
-                        <label>輸入符號數值表示字:</label>
-                        <input type="text" class="binaryInput" style="width:300px;" maxlength="32" />
-                        <input type="button" class="toNumberBtn" value="轉換" />
-                    </div>
-                    <div>
-                        <label>結果:</label>
-                        <div class="resultPad"></div>
-                    </div>
-                </div>
-            </div>
-            <hr/>
-            <div id="doubleBoard">
-                <h2>Double(8 Byte = 64 bit)64位元雙精度</h2>
-                <table class="bitsBoard">
-                    <thead>
-                        <th colspan="1" class="sign">Sign(1)</th>
-                        <th colspan="11" class="exponent">Exponent(11)</th>
-                        <th colspan="52" class="fraction">Fraction(52)</th>
-                    </thead>
-                </table>
-                <p>sign(符號):0為正，1為負。</p>
-                <p>exponent(指數):範圍1~2046(0,2047為特殊值)，分正負 以1023為0，故最小值為-1022、最大值為1023。</p>
-                <p>fraction(尾數):二進位首碼必定為1，可省略不記，故可記錄最大值為2^53，精度為log(2^53)=15位數。</p>
-                <div>
-                    <div>
-                        <label>輸入數字:</label>
-                        <input type="text" class="numberInput" style="width:300px;" />
-                        <input type="button" class="toBinaryBtn" value="轉換" />
-                    </div>
-                    <div>
-                        <label>輸入符號數值表示字:</label>
-                        <input type="text" class="binaryInput" style="width:600px;" maxlength="64" />
-                        <input type="button" class="toNumberBtn" value="轉換" />
-                    </div>
-                    <div>
-                        <label>結果:</label>
-                        <div class="resultPad"></div>
+                    <div class="panel-body">
+                        <p><a href="https://zh.wikipedia.org/wiki/IEEE_754" target="_blank">IEEE二進位浮點數算術標準（IEEE 754)</a></p>
                     </div>
                 </div>
             </div>
         </div>
-
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                        <h2 class="panel-title">浮點小數表示法</h2>
+                    </div>
+                    <div class="panel-body">
+                        <p>$51.25_{(10)}$ = $110011.01_{(2)}$。</p>
+                        <p>$110011.01_{(2)}$ 以浮點小數表示法表示為 $1.1001101 * 2^{5}$。</p>
+                        <p>相當於$1*2^{5}+1*2^{4}+1*2^{1}+1*2^{0}+1*2^{-2}=32+16+2+1+0.25=51.25$。</p>
+                        <p>二進位首碼必定為1，故可省略不記，計算時在補上。</p>
+                        <p>$1.1001101$省略首碼後 => 得到尾數為$1001101$。</p>
+                        <p>$1.1001101 * 2^{5}$ => 得到指數為$5$。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-5">
+                <div id="floatBoard" class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h2 class="panel-title">Float 32位元 單精度浮點數</h2>
+                    </div>
+                    <div class="panel-body">
+                        <p>
+                            <h4>sign(符號)[31]:</h4>0為正，1為負。</p>
+                        <p>
+                            <h4>exponent(指數)[30~23]:</h4>範圍1~254(0,255為特殊值)。<br>分正負 以中間值127為0。<br>故最小值為-126、最大值為127。</p>
+                        <p>
+                            <h4>fraction(尾數)[22~0]:</h4>二進位首碼必定為1，可省略不記。<br>故可記錄最大值為$2^{24}$。<br>空格補0。<br>精度為$log_{10}(2^{24})=7.2247$
+                            => 7位數。</p>
+                        <table class="bitsBoard">
+                            <thead>
+                                <th colspan="1" class="sign">S</th>
+                                <th colspan="8" class="exponent">Exp(8)</th>
+                                <th colspan="23" class="fraction">Fraction(23)</th>
+                            </thead>
+                        </table>
+                    </div>
+                    <div class="panel-footer">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="input-group">
+                                    <span class="input-group-addon" id="addon-number">數字:</span>
+                                    <input type="text" class="form-control numberInput" placeholder="輸入數字" aria-describedby="addon-number">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default toBinaryBtn" type="button">轉換</button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="input-group">
+                                    <span class="input-group-addon" id="addon-binary">符號數值:</span>
+                                    <input type="text" class="form-control binaryInput" placeholder="輸入符號數值表示字" maxlength="32" aria-describedby="addon-binary">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default toNumberBtn" type="button">轉換</button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <h4>計算過程:</h4>
+                                <div class="resultPad"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-7">
+                <div id="doubleBoard" class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h2 class="panel-title">Double 64位元 雙精度浮點數</h2>
+                    </div>
+                    <div class="panel-body">
+                        <p>
+                            <h4>sign(符號)[63]:</h4>0為正，1為負。</p>
+                        <p>
+                            <h4>exponent(指數)[62~52]:</h4>範圍1~2046(0,2047為特殊值)。<br>分正負 以中間值1023為0。<br>故最小值為-1022、最大值為1023。</p>
+                        <p>
+                            <h4>fraction(尾數)[51~0]:</h4>二進位首碼必定為1，可省略不記。<br>故可記錄最大值為$2^{53}$。<br>空格補0。<br>精度為$log_{10}(2^{53})=15.9546$=>15位數。</p>
+                        <table class="bitsBoard">
+                            <thead>
+                                <th colspan="1" class="sign">S</th>
+                                <th colspan="11" class="exponent">Exp(11)</th>
+                                <th colspan="52" class="fraction">Fraction(52)</th>
+                            </thead>
+                        </table>
+                    </div>
+                    <div class="panel-footer">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="input-group">
+                                    <span class="input-group-addon" id="addon-number">數字:</span>
+                                    <input type="text" class="form-control numberInput" placeholder="輸入數字" aria-describedby="addon-number">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default toBinaryBtn" type="button">轉換</button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="input-group">
+                                    <span class="input-group-addon" id="addon-binary">符號數值:</span>
+                                    <input type="text" class="form-control binaryInput" placeholder="輸入符號數值表示字" maxlength="64" aria-describedby="addon-binary">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default toNumberBtn" type="button">轉換</button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <h4>計算過程:</h4>
+                                <div class="resultPad"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <!-- /.container -->
     <script src="../lib/jquery/jquery-3.2.1.min.js"></script>
     <script src="../lib/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=default"></script>
     <script src="js/float-double.js"></script>
 </body>
 
