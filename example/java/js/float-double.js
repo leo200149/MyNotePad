@@ -7,7 +7,6 @@
         var exponentBinary = exponent.toString(2);
         var loseLength = exponentSize - exponentBinary.length;
         for (var i = 0; i < loseLength; i++)exponentBinary = '0' + exponentBinary;
-        console.log(exponentSize);
         return exponentBinary;
     }
 
@@ -23,7 +22,7 @@
     function parseToBinary(number, exponentCenter, fractionSize) {
         var binary = '';
         number >= 0 ? binary += '0' : binary += '1';
-        var binaryStr = new Number(number).toString(2);
+        var binaryStr = new Number(Math.abs(number)).toString(2);
         var exponentBinary = getExponent(binaryStr, exponentCenter);
         var fractionBinary = getFraction(binaryStr, fractionSize);
         binary += exponentBinary;
@@ -34,6 +33,7 @@
     function parseToNumber(binary, exponentCenter, fractionSize) {
         var fixed = Math.floor(Math.log10(Math.pow(2, fractionSize + 1)));
         var exponentSize = Math.log2(exponentCenter + 1) + 1;
+        var sign = binary.charAt(0);
         var exponent = binary.substr(1, exponentSize);
         var fraction = binary.substr(exponentSize + 1);
         fraction = '1' + fraction;
@@ -43,6 +43,7 @@
             number += fraction.charAt(i) * Math.pow(2, exponent);
             exponent--;
         }
+        number = number * (sign==0?1:-1);
         var intSize = ('' + number).indexOf('.');
         if (intSize == -1) {
             fixed = 0;
@@ -105,23 +106,24 @@
             var number = numInput.val();
             if (!isNaN(number) && number != 0) {
                 var binary = parseToBinary(number, exponentCenter, fractionSize);
-                var binaryStr = new Number(number).toString(2);
-                var exponentBinary = getExponent(binaryStr, exponentCenter);
-                var fractionBinary = getFraction(binaryStr, fractionSize);
+                var sign = binary.charAt(0);
+                var isPositive = sign == 0;
+                var exponent = binary.substr(1, exponentSize);
+                var fraction = binary.substr(exponentSize + 1);
+                var realExponent = parseInt(exponent, 2) - exponentCenter;
+                var numberBinary = new Number(number).toString(2);
+                var showNumberBinary = numberBinary.length > fractionSize + 1 ? numberBinary.substr(0, fractionSize + 1) + '...' : numberBinary;
+                var resultStrs = [];
+                resultStrs.push('$' + number + '_{(10)}=' + showNumberBinary + '_{(2)}$');
+                resultStrs.push('浮點小數表示法為 $' + (isPositive ? '' : '-') + '1.' + rmZero(fraction) + '*2^{' + realExponent + '}$');
+                resultStrs.push('$' + number + (isPositive ? '$為正數' : '$為負數') + '故Sign(符號)為 $' + (isPositive ? 0 : 1) + '$');
+                resultStrs.push('Exponent(指數)為 $' + realExponent + '_{(10)}+' + exponentCenter + '_{(10)}=' + exponent + '_{(2)}$');
+                resultStrs.push('Fraction(尾數)去掉首碼，補零後為 $' + fraction + '$');
+                resultStrs.push('結果為 $' + binary + '$');
                 for (var i = 0; i < tds.length; i++) {
                     var td = $(tds[i]);
                     td.text(binary.charAt(i));
                 }
-                var resultStrs = [];
-                var isPositive = number > 0;
-                var showBinaryStr = binaryStr.length > fractionSize + 1 ? binaryStr.substr(0, fractionSize + 1) + '...' : binaryStr;
-                var exponentNum = parseInt(exponentBinary, 2) - exponentCenter;
-                resultStrs.push('$' + number + '_{(10)}=' + showBinaryStr + '_{(2)}$');
-                resultStrs.push('浮點小數表示法為 $' + (isPositive ? '' : '-') + '1.' + showBinaryStr.replace('.', '').substr(1) + '*2^{' + exponentNum + '}$');
-                resultStrs.push('$' + number + (isPositive ? '$為正數' : '$為負數') + '故Sign(符號)為 $' + (isPositive ? 0 : 1) + '$');
-                resultStrs.push('Exponent(指數)為 $' + exponentNum + '_{(10)}+' + exponentCenter + '_{(10)}=' + exponentBinary + '_{(2)}$');
-                resultStrs.push('Fraction(尾數)去掉首碼，補零後為 $' + fractionBinary + '$');
-                resultStrs.push('結果為 $' + binary + '$');
                 binaryInput.val(binary);
                 appendResult(resultPad, resultStrs);
             }
@@ -131,7 +133,6 @@
             if (binary.length > 0) {
                 var number = parseToNumber(binary, exponentCenter, fractionSize);
                 numInput.val(rmZero(number));
-                var resultStrs = [];
                 var sign = binary.charAt(0);
                 var isPositive = sign == 0;
                 var exponent = binary.substr(1, exponentSize);
@@ -139,10 +140,11 @@
                 var realExponent = parseInt(exponent, 2) - exponentCenter;
                 var numberBinary = new Number(number).toString(2);
                 var showNumberBinary = numberBinary.length > fractionSize + 1 ? numberBinary.substr(0, fractionSize + 1) + '...' : numberBinary;
+                var resultStrs = [];
                 resultStrs.push('Sign(符號)為 $' + sign + '$ 故數字' + (isPositive ? '為正數' : '為負數') + '');
                 resultStrs.push('Exponent(指數)為 $' + exponent + '_{(2)}=' + parseInt(exponent, 2) + '_{(10)}=' + exponentCenter + '_{(10)}+' + realExponent + '_{(10)}$');
                 resultStrs.push('Fraction(尾數)為 $' + fraction + '$');
-                resultStrs.push('尾數補首碼，去零後浮點小數表示法為 $1.' + rmZero(fraction) + '*2^{' + realExponent + '}$');
+                resultStrs.push('尾數補首碼，去零後浮點小數表示法為' + (isPositive ? '' : '-') + '$1.' + rmZero(fraction) + '*2^{' + realExponent + '}$');
                 resultStrs.push('還原為普通二進位 $' + showNumberBinary + '_{(2)}$');
                 resultStrs.push('二進位轉十進位結果為 $' + rmZero(number) + '_{(10)}$');
                 appendResult(resultPad, resultStrs);
