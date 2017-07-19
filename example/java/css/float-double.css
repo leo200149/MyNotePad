@@ -1,0 +1,25 @@
+body {
+  padding-top: 50px;
+}
+.starter-template {
+  padding: 40px 15px;
+}
+td{
+  width:10px;
+  height:15px;
+  border:1px solid black;
+  color:red;
+  font-weight:bold;
+}
+.bitsBoard{
+  border:1px solid black;
+}
+.sign{
+  background:#ececb7;
+}
+.exponent{
+  background:#c0ecc0;
+}
+.fraction{
+  background:#a9a9f3;
+}
