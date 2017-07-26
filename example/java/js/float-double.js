@@ -3,7 +3,13 @@
     function getExponent(binaryStr, exponentCenter) {
         var exponent = binaryStr.indexOf('.') - 1;
         var exponentSize = Math.log2(exponentCenter + 1) + 1;
-        exponent == -2 ? exponent = binaryStr.length - 1 + exponentCenter : exponent += exponentCenter;
+        if(exponent == -2){
+            exponent = binaryStr.length - 1 + exponentCenter;
+        }else if(binaryStr.indexOf('0.')==0){
+            exponent = 1 - binaryStr.indexOf('1') + exponentCenter;
+        }else{
+            exponent += exponentCenter;
+        }
         var exponentBinary = exponent.toString(2);
         var loseLength = exponentSize - exponentBinary.length;
         for (var i = 0; i < loseLength; i++)exponentBinary = '0' + exponentBinary;
@@ -11,7 +17,12 @@
     }
 
     function getFraction(binaryStr, fractionSize) {
-        var fraction = binaryStr.replace('.', '');
+        var fraction = '';
+        if(binaryStr.indexOf('0.')==0){
+            fraction = binaryStr.substr(binaryStr.indexOf('1'));
+        }else{
+            fraction = binaryStr.replace('.', '');
+        }
         fraction = fraction.substr(1);
         var addLength = fractionSize - fraction.length;
         for (var i = 0; i < addLength; i++)fraction += '0';
@@ -89,10 +100,11 @@
         var toNumberBtn = board.find('.toNumberBtn');
         var resultPad = board.find('.resultPad');
         var tds = board.find('.bit-td');
-        numInput.bind('keyup', function (event) {
+        numInput.bind('change', function (event) {
             var number = $(this).val();
-            if (number == 0 || (number != '-' && isNaN(number))) {
-                numInput.val(number.slice(0, -1));
+            if (isNaN(number)) {
+                alert('not number');
+                numInput.val('');
             }
         });
         binaryInput.bind('keyup', function (event) {
