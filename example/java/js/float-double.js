@@ -24,6 +24,17 @@
             fraction = binaryStr.replace('.', '');
         }
         fraction = fraction.substr(1);
+        if(fraction.length > fractionSize){
+            var num = fraction.charAt(fractionSize);
+            if(num==1){
+                var lastZero = fraction.substr(0, fractionSize).lastIndexOf('0');
+                var num2 = fraction.substr(lastZero,fractionSize-lastZero);
+                var numBinary = (parseInt(num,2)+parseInt(num2,2)).toString(2);
+                fraction = fraction.substr(0,lastZero)+numBinary;
+                console.log(numBinary);
+                console.log(fraction);
+            }
+        }
         var addLength = fractionSize - fraction.length;
         for (var i = 0; i < addLength; i++)fraction += '0';
         fraction = fraction.substr(0, fractionSize);
@@ -130,7 +141,7 @@
                 resultStrs.push('浮點小數表示法為 $' + (isPositive ? '' : '-') + '1.' + rmZero(fraction) + '*2^{' + realExponent + '}$');
                 resultStrs.push('$' + number + (isPositive ? '$為正數' : '$為負數') + '故Sign(符號)為 $' + (isPositive ? 0 : 1) + '$');
                 resultStrs.push('Exponent(指數)為 $' + realExponent + '_{(10)}+' + exponentCenter + '_{(10)}=' + exponent + '_{(2)}$');
-                resultStrs.push('Fraction(尾數)去掉首碼，補零後為 $' + fraction + '$');
+                resultStrs.push('Fraction(尾數)去掉首碼，補零/舍去後為 $' + fraction + '$');
                 resultStrs.push('結果為 $' + binary + '$');
                 for (var i = 0; i < tds.length; i++) {
                     var td = $(tds[i]);
