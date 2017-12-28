@@ -1,0 +1,22 @@
+<html>
+
+	<head>
+		<title>象棋大盤</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<link rel="stylesheet" href="css/style.css" />
+		<script src="js/lib/jquery-1.11.2.min.js"></script>
+		<script src="js/chessman/Chess.js"></script>
+		<script src="js/Controller.js"></script>
+		<script src="js/AI.js"></script>
+	</head>
+
+	<body onload="start2P()">
+		<center>
+			<button id="start2PBtn" onclick="start2P()">2P Battle</button>
+			<button id="startAIBtn" onclick="startAI()">AI Test Demo</button>
+			<button id="resetBtn" onclick="resetAll()">RESET</button>
+			<span id="score">RED:0,BLACK:0</span>
+		</center>
+	</body>
+
+</html>
