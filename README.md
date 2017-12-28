@@ -22,8 +22,8 @@
 
 ## Chrome-extension
 
-1. [Regex搜尋](https://github.com/leo200149/MyNotePad/tree/master/chrome/RegexSearch)
-2. [隨時練打字](https://github.com/leo200149/MyNotePad/tree/master/chrome/TypingAnyWhere)
+1. [Regex搜尋](https://github.com/leo200149/MyNotePad/tree/master/chrome-extension/RegexSearch)
+2. [隨時練打字](https://github.com/leo200149/MyNotePad/tree/master/chrome-extension/TypingAnyWhere)
 
 ---
 

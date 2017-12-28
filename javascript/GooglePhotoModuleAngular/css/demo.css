@@ -1,0 +1,11 @@
+.photoTable>tbody>tr{
+    height:300;
+}
+.photoTable>tbody>tr>td{
+    width:200;
+    vertical-align: top;
+}
+.photoTable>tbody>tr>td>a>img{
+    width: 200;
+    height: 200;
+}
