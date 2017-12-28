@@ -1,0 +1,122 @@
+
+.key {
+	width: 40px;
+	height: 40px;
+	background: #ccc;
+	margin: 0.50px;
+	border-radius: 1.995px;
+	float: left;
+	box-shadow: 0 4px 5.32px 1.33px rgba(0,0,0,0.3);
+}
+.key:after {
+	content: '';
+	display: block;
+	margin: 1px 4px 7px;
+	height: 32px;
+	border-radius: 3.325px;
+	background: #fff;
+}
+.keyColor {
+	width: 40px;
+	height: 40px;
+	background: #d8d8d8;
+	border-radius: 1.995px;
+	float: left;
+	opacity:0.8;
+}
+.keyWord{
+	width: 40px;
+	height: 40px;
+	margin-top: 3px;
+	border-radius: 1.995px;
+	float: left;
+	color: #888;
+	-webkit-transform : scale(0.75);
+	text-align:center;
+}
+.key-tab,
+.key-nDivide {
+	width: 60.515px;
+}
+.key-caps {
+	width: 69.825px;
+}
+.key-lshift {
+	width: 93.1px;
+}
+.key-ctrl,
+.key-win,
+.key-alt,
+.key-rightclick {
+	width: 49.21px;
+}
+.key-back,
+.key-ins {
+	width: 81.13px;
+}
+.key-enter {
+	width: 92.435px;
+}
+.key-rshift {
+	width: 110.39px;
+}
+.key-space {
+	width: 263.34px;
+}
+.key-padding {
+	opacity: 0;
+	float: right;
+}
+.key-plus {
+	height: 81.13px;
+}
+.key-plus:after {
+	height: 71.155px;
+}
+.keypadSize1{
+	width: 9.31px;
+	height:1.33px;
+	float: left;
+}
+.keypadSize2{
+	width: 18.62px;
+	height:1.33px;
+	float: left;
+}
+.keypadSize5{
+	width: 46.55px;
+	height:1px;
+	float: left;
+}
+.keypadKeySize{
+	width: 40px;
+	height:1.33px;
+	margin: 0.55px;
+	border-radius: 1.995px;
+	float: left;
+}
+.keypad{
+}
+.keypad-main{
+	float: left;
+}
+.keypad-func{
+	float: left;
+}
+.keypad-num{
+	float: left;
+}
+.keypad-num-bottom{
+}
+.keypad-num-left{
+	float: left;
+}
+.keypad-num-right{
+}
+.keypad-line{
+	height:41px;
+}
+.keypad-line-top{
+	height:60px;
+}
+

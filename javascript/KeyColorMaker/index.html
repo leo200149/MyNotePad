@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="google" content="notranslate" />
+		<title>KeyColorMaker</title>
+		 <link rel="stylesheet" type="text/css" href="lib/bootstrap/css/bootstrap-theme.min.css"/>
+		 <link rel="stylesheet" type="text/css" href="lib/bootstrap/css/bootstrap.min.css"/>
+		 <link rel="stylesheet" type="text/css" href="lib/bootstrap/css/doc.min.css"/>
+		 <link rel="stylesheet" type="text/css" href="lib/bootstrap/js/vendor/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css"/>
+		 <link rel="stylesheet" type="text/css" href="lib/bootstrap/js/vendor/bootstrap-switch-master/css/bootstrap3/bootstrap-switch.min.css"/>
+		 <link rel="stylesheet" href="css/app.css" />
+		 <link rel="stylesheet" href="css/key1.3.css" />
+	</head>
+	<body>
+	     <nav class="navbar navbar-inverse navbar-fixed-top">
+	      <div class="container-fluid">
+	        <div class="navbar-header">
+	          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+	            <span class="sr-only">Toggle navigation</span>
+	            <span class="icon-bar"></span>
+	            <span class="icon-bar"></span>
+	          </button>
+	          <a class="navbar-brand" href="#">KeyColorMaker</a>
+	          <span class="navbar-brand">Ver1.1 by <a href="http://hycleo.logdown.com/pages/about-me">Leo_Chen</a></span>
+	        </div>
+	        <div id="navbar" class="navbar-collapse collapse">
+	          <ul class="nav navbar-nav navbar-right">
+	            <li>
+					<div class="btn-group">
+					  <button type="button" class="btn-xs btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					    Add Keyboard <span class="caret"></span>
+					  </button>
+					  <ul class="dropdown-menu">
+					    <li><a href="javascript:createKeyboard(61)">61</a></li>
+					    <li><a href="javascript:createKeyboard(87)">87</a></li>
+					    <li><a href="javascript:createKeyboard(104)">104</a></li>
+					    <li><a href="javascript:createKeyboard(108)">108</a></li>
+					  </ul>
+					</div>
+	            </li>
+	            <li>
+					<div class="btn-group">
+					  <button type="button" class="btn-xs btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					    Delete Keyboard <span class="caret"></span>
+					  </button>
+					  <ul id="keyboardDeletes" class="dropdown-menu">
+					  </ul>
+					</div>
+	            </li>
+	            <!--
+        			<li>
+        				<input id="loadBtn" type="file" class="btn-success btn-xs">Load</input>
+        			</li>
+        			<li>
+        				<button id="saveBtn" class="btn-success btn-xs">Save</button>
+        			</li>
+        			-->
+	          </ul>
+	        </div>
+	      </div>
+	    </nav>
+	    <div class="container-fluid">
+	      <div class="row">
+	        <div class="col-sm-3 col-md-2 sidebar">
+	        		<ul class="nav nav-sidebar">
+		            <li  id="demoBg">
+		            		<div class="input-group">
+		            			<div class="key">
+		            				<span class="keyColor" id="demoColor">
+		            					<label class="keyWord" id="demoLabel">A</label>
+		            				</span>
+		            			</div>
+						</div>
+		            </li>
+		            <li>
+		            		<div class="input-group colorpicker cp-key">
+						    <input type="text" class="form-control" id="colorPicker-key" placeholder="pick key color" value="#000121"/>
+						    <span class="input-group-addon"><i></i></span>
+						</div>
+		            </li>
+		            <li>
+		            		<div class="input-group colorpicker cp-font">
+						    <input type="text" class="form-control" id="colorPicker-font" placeholder="pick font color" value="#d6c9c9"/>
+						    <span class="input-group-addon"><i></i></span>
+						</div>
+		            </li>
+		            <li>
+		            		<div class="input-group colorpicker cp-bg">
+						    <input type="text" class="form-control" id="colorPicker-bg" placeholder="pick backgorund color" value="rgba(0,0,0,0.86)"/>
+						    <span class="input-group-addon"><i></i></span>
+						</div>
+		            </li>
+	        			<li>
+		            		<div class="input-group" id="keyColorHist"></div>
+	        			</li>
+	        			<li>
+		            		<div class="input-group">
+	            				<button id="paintKeys" class="btn-info btn-xs">Paint all keys</button>
+	            				<button id="paintBg" class="btn-info btn-xs">Paint background</button>
+						</div>
+	        			</li>
+	        			<li>
+		            		<div class="keypad-line"></div>
+	        			</li>
+		        </ul>
+	        </div>
+	        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+	        		<ul id="keyboardTabs" class="nav nav-tabs"></ul>
+	      		<div id="paintBoard" class="row"></div>
+	        		<button type="button" id="popFontIconBtn" style="display:none" class="btn btn-primary" data-toggle="modal" data-target="#myModal"></button>
+	      		<div class="modal fade" id="myModal">
+				  <div class="modal-dialog modal-lg">
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				        <h4 class="modal-title">Change Font Icon</h4>
+				      </div>
+				      <div class="modal-body">
+				        <div class="bs-glyphicons"> 
+				        	  <input type="hidden" id="keyIdValue"></input>
+						  <ul class="bs-glyphicons-list"> 
+							  <li><label class="glyphicon" id="fontWord"></label</li>
+							  <li><label class="glyphicon glyphicon-asterisk"></label</li>
+							  <li><label class="glyphicon glyphicon-plus"></label</li>
+							  <li><label class="glyphicon glyphicon-euro"></label</li>
+							  <li><label class="glyphicon glyphicon-eur"></label</li>
+							  <li><label class="glyphicon glyphicon-minus"></label</li>
+							  <li><label class="glyphicon glyphicon-cloud"></label</li>
+							  <li><label class="glyphicon glyphicon-envelope"></label</li>
+							  <li><label class="glyphicon glyphicon-pencil"></label</li>
+							  <li><label class="glyphicon glyphicon-glass"></label</li>
+							  <li><label class="glyphicon glyphicon-music"></label</li>
+							  <li><label class="glyphicon glyphicon-search"></label</li>
+							  <li><label class="glyphicon glyphicon-heart"></label</li>
+							  <li><label class="glyphicon glyphicon-star"></label</li>
+							  <li><label class="glyphicon glyphicon-star-empty"></label</li>
+							  <li><label class="glyphicon glyphicon-user"></label</li>
+							  <li><label class="glyphicon glyphicon-film"></label</li>
+							  <li><label class="glyphicon glyphicon-th-large"></label</li>
+							  <li><label class="glyphicon glyphicon-th"></label</li>
+							  <li><label class="glyphicon glyphicon-th-list"></label</li>
+							  <li><label class="glyphicon glyphicon-ok"></label</li>
+							  <li><label class="glyphicon glyphicon-remove"></label</li>
+							  <li><label class="glyphicon glyphicon-zoom-in"></label</li>
+							  <li><label class="glyphicon glyphicon-zoom-out"></label</li>
+							  <li><label class="glyphicon glyphicon-off"></label</li>
+							  <li><label class="glyphicon glyphicon-signal"></label</li>
+							  <li><label class="glyphicon glyphicon-cog"></label</li>
+							  <li><label class="glyphicon glyphicon-trash"></label</li>
+							  <li><label class="glyphicon glyphicon-home"></label</li>
+							  <li><label class="glyphicon glyphicon-file"></label</li>
+							  <li><label class="glyphicon glyphicon-time"></label</li>
+							  <li><label class="glyphicon glyphicon-road"></label</li>
+							  <li><label class="glyphicon glyphicon-download-alt"></label</li>
+							  <li><label class="glyphicon glyphicon-download"></label</li>
+							  <li><label class="glyphicon glyphicon-upload"></label</li>
+							  <li><label class="glyphicon glyphicon-inbox"></label</li>
+							  <li><label class="glyphicon glyphicon-play-circle"></label</li>
+							  <li><label class="glyphicon glyphicon-repeat"></label</li>
+							  <li><label class="glyphicon glyphicon-refresh"></label</li>
+							  <li><label class="glyphicon glyphicon-list-alt"></label</li>
+							  <li><label class="glyphicon glyphicon-lock"></label</li>
+							  <li><label class="glyphicon glyphicon-flag"></label</li>
+							  <li><label class="glyphicon glyphicon-headphones"></label</li>
+							  <li><label class="glyphicon glyphicon-volume-off"></label</li>
+							  <li><label class="glyphicon glyphicon-volume-down"></label</li>
+							  <li><label class="glyphicon glyphicon-volume-up"></label</li>
+							  <li><label class="glyphicon glyphicon-qrcode"></label</li>
+							  <li><label class="glyphicon glyphicon-barcode"></label</li>
+							  <li><label class="glyphicon glyphicon-tag"></label</li>
+							  <li><label class="glyphicon glyphicon-tags"></label</li>
+							  <li><label class="glyphicon glyphicon-book"></label</li>
+							  <li><label class="glyphicon glyphicon-bookmark"></label</li>
+							  <li><label class="glyphicon glyphicon-print"></label</li>
+							  <li><label class="glyphicon glyphicon-camera"></label</li>
+							  <li><label class="glyphicon glyphicon-font"></label</li>
+							  <li><label class="glyphicon glyphicon-bold"></label</li>
+							  <li><label class="glyphicon glyphicon-italic"></label</li>
+							  <li><label class="glyphicon glyphicon-text-height"></label</li>
+							  <li><label class="glyphicon glyphicon-text-width"></label</li>
+							  <li><label class="glyphicon glyphicon-align-left"></label</li>
+							  <li><label class="glyphicon glyphicon-align-center"></label</li>
+							  <li><label class="glyphicon glyphicon-align-right"></label</li>
+							  <li><label class="glyphicon glyphicon-align-justify"></label</li>
+							  <li><label class="glyphicon glyphicon-list"></label</li>
+							  <li><label class="glyphicon glyphicon-indent-left"></label</li>
+							  <li><label class="glyphicon glyphicon-indent-right"></label</li>
+							  <li><label class="glyphicon glyphicon-facetime-video"></label</li>
+							  <li><label class="glyphicon glyphicon-picture"></label</li>
+							  <li><label class="glyphicon glyphicon-map-marker"></label</li>
+							  <li><label class="glyphicon glyphicon-adjust"></label</li>
+							  <li><label class="glyphicon glyphicon-tint"></label</li>
+							  <li><label class="glyphicon glyphicon-edit"></label</li>
+							  <li><label class="glyphicon glyphicon-share"></label</li>
+							  <li><label class="glyphicon glyphicon-check"></label</li>
+							  <li><label class="glyphicon glyphicon-move"></label</li>
+							  <li><label class="glyphicon glyphicon-step-backward"></label</li>
+							  <li><label class="glyphicon glyphicon-fast-backward"></label</li>
+							  <li><label class="glyphicon glyphicon-backward"></label</li>
+							  <li><label class="glyphicon glyphicon-play"></label</li>
+							  <li><label class="glyphicon glyphicon-pause"></label</li>
+							  <li><label class="glyphicon glyphicon-stop"></label</li>
+							  <li><label class="glyphicon glyphicon-forward"></label</li>
+							  <li><label class="glyphicon glyphicon-fast-forward"></label</li>
+							  <li><label class="glyphicon glyphicon-step-forward"></label</li>
+							  <li><label class="glyphicon glyphicon-eject"></label</li>
+							  <li><label class="glyphicon glyphicon-chevron-left"></label</li>
+							  <li><label class="glyphicon glyphicon-chevron-right"></label</li>
+							  <li><label class="glyphicon glyphicon-plus-sign"></label</li>
+							  <li><label class="glyphicon glyphicon-minus-sign"></label</li>
+							  <li><label class="glyphicon glyphicon-remove-sign"></label</li>
+							  <li><label class="glyphicon glyphicon-ok-sign"></label</li>
+							  <li><label class="glyphicon glyphicon-question-sign"></label</li>
+							  <li><label class="glyphicon glyphicon-info-sign"></label</li>
+							  <li><label class="glyphicon glyphicon-screenshot"></label</li>
+							  <li><label class="glyphicon glyphicon-remove-circle"></label</li>
+							  <li><label class="glyphicon glyphicon-ok-circle"></label</li>
+							  <li><label class="glyphicon glyphicon-ban-circle"></label</li>
+							  <li><label class="glyphicon glyphicon-arrow-left"></label</li>
+							  <li><label class="glyphicon glyphicon-arrow-right"></label</li>
+							  <li><label class="glyphicon glyphicon-arrow-up"></label</li>
+							  <li><label class="glyphicon glyphicon-arrow-down"></label</li>
+							  <li><label class="glyphicon glyphicon-share-alt"></label</li>
+							  <li><label class="glyphicon glyphicon-resize-full"></label</li>
+							  <li><label class="glyphicon glyphicon-resize-small"></label</li>
+							  <li><label class="glyphicon glyphicon-exclamation-sign"></label</li>
+							  <li><label class="glyphicon glyphicon-gift"></label</li>
+							  <li><label class="glyphicon glyphicon-leaf"></label</li>
+							  <li><label class="glyphicon glyphicon-fire"></label</li>
+							  <li><label class="glyphicon glyphicon-eye-open"></label</li>
+							  <li><label class="glyphicon glyphicon-eye-close"></label</li>
+							  <li><label class="glyphicon glyphicon-warning-sign"></label</li>
+							  <li><label class="glyphicon glyphicon-plane"></label</li>
+							  <li><label class="glyphicon glyphicon-calendar"></label</li>
+							  <li><label class="glyphicon glyphicon-random"></label</li>
+							  <li><label class="glyphicon glyphicon-comment"></label</li>
+							  <li><label class="glyphicon glyphicon-magnet"></label</li>
+							  <li><label class="glyphicon glyphicon-chevron-up"></label</li>
+							  <li><label class="glyphicon glyphicon-chevron-down"></label</li>
+							  <li><label class="glyphicon glyphicon-retweet"></label</li>
+							  <li><label class="glyphicon glyphicon-shopping-cart"></label</li>
+							  <li><label class="glyphicon glyphicon-folder-close"></label</li>
+							  <li><label class="glyphicon glyphicon-folder-open"></label</li>
+							  <li><label class="glyphicon glyphicon-resize-vertical"></label</li>
+							  <li><label class="glyphicon glyphicon-resize-horizontal"></label</li>
+							  <li><label class="glyphicon glyphicon-hdd"></label</li>
+							  <li><label class="glyphicon glyphicon-bullhorn"></label</li>
+							  <li><label class="glyphicon glyphicon-bell"></label</li>
+							  <li><label class="glyphicon glyphicon-certificate"></label</li>
+							  <li><label class="glyphicon glyphicon-thumbs-up"></label</li>
+							  <li><label class="glyphicon glyphicon-thumbs-down"></label</li>
+							  <li><label class="glyphicon glyphicon-hand-right"></label</li>
+							  <li><label class="glyphicon glyphicon-hand-left"></label</li>
+							  <li><label class="glyphicon glyphicon-hand-up"></label</li>
+							  <li><label class="glyphicon glyphicon-hand-down"></label</li>
+							  <li><label class="glyphicon glyphicon-circle-arrow-right"></label</li>
+							  <li><label class="glyphicon glyphicon-circle-arrow-left"></label</li>
+							  <li><label class="glyphicon glyphicon-circle-arrow-up"></label</li>
+							  <li><label class="glyphicon glyphicon-circle-arrow-down"></label</li>
+							  <li><label class="glyphicon glyphicon-globe"></label</li>
+							  <li><label class="glyphicon glyphicon-wrench"></label</li>
+							  <li><label class="glyphicon glyphicon-tasks"></label</li>
+							  <li><label class="glyphicon glyphicon-filter"></label</li>
+							  <li><label class="glyphicon glyphicon-briefcase"></label</li>
+							  <li><label class="glyphicon glyphicon-fullscreen"></label</li>
+							  <li><label class="glyphicon glyphicon-dashboard"></label</li>
+							  <li><label class="glyphicon glyphicon-paperclip"></label</li>
+							  <li><label class="glyphicon glyphicon-heart-empty"></label</li>
+							  <li><label class="glyphicon glyphicon-link"></label</li>
+							  <li><label class="glyphicon glyphicon-phone"></label</li>
+							  <li><label class="glyphicon glyphicon-pushpin"></label</li>
+							  <li><label class="glyphicon glyphicon-usd"></label</li>
+							  <li><label class="glyphicon glyphicon-gbp"></label</li>
+							  <li><label class="glyphicon glyphicon-sort"></label</li>
+							  <li><label class="glyphicon glyphicon-sort-by-alphabet"></label</li>
+							  <li><label class="glyphicon glyphicon-sort-by-alphabet-alt"></label</li>
+							  <li><label class="glyphicon glyphicon-sort-by-order"></label</li>
+							  <li><label class="glyphicon glyphicon-sort-by-order-alt"></label</li>
+							  <li><label class="glyphicon glyphicon-sort-by-attributes"></label</li>
+							  <li><label class="glyphicon glyphicon-sort-by-attributes-alt"></label</li>
+							  <li><label class="glyphicon glyphicon-unchecked"></label</li>
+							  <li><label class="glyphicon glyphicon-expand"></label</li>
+							  <li><label class="glyphicon glyphicon-collapse-down"></label</li>
+							  <li><label class="glyphicon glyphicon-collapse-up"></label</li>
+							  <li><label class="glyphicon glyphicon-log-in"></label</li>
+							  <li><label class="glyphicon glyphicon-flash"></label</li>
+							  <li><label class="glyphicon glyphicon-log-out"></label</li>
+							  <li><label class="glyphicon glyphicon-new-window"></label</li>
+							  <li><label class="glyphicon glyphicon-record"></label</li>
+							  <li><label class="glyphicon glyphicon-save"></label</li>
+							  <li><label class="glyphicon glyphicon-open"></label</li>
+							  <li><label class="glyphicon glyphicon-saved"></label</li>
+							  <li><label class="glyphicon glyphicon-import"></label</li>
+							  <li><label class="glyphicon glyphicon-export"></label</li>
+							  <li><label class="glyphicon glyphicon-send"></label</li>
+							  <li><label class="glyphicon glyphicon-floppy-disk"></label</li>
+							  <li><label class="glyphicon glyphicon-floppy-saved"></label</li>
+							  <li><label class="glyphicon glyphicon-floppy-remove"></label</li>
+							  <li><label class="glyphicon glyphicon-floppy-save"></label</li>
+							  <li><label class="glyphicon glyphicon-floppy-open"></label</li>
+							  <li><label class="glyphicon glyphicon-credit-card"></label</li>
+							  <li><label class="glyphicon glyphicon-transfer"></label</li>
+							  <li><label class="glyphicon glyphicon-cutlery"></label</li>
+							  <li><label class="glyphicon glyphicon-header"></label</li>
+							  <li><label class="glyphicon glyphicon-compressed"></label</li>
+							  <li><label class="glyphicon glyphicon-earphone"></label</li>
+							  <li><label class="glyphicon glyphicon-phone-alt"></label</li>
+							  <li><label class="glyphicon glyphicon-tower"></label</li>
+							  <li><label class="glyphicon glyphicon-stats"></label</li>
+							  <li><label class="glyphicon glyphicon-sd-video"></label</li>
+							  <li><label class="glyphicon glyphicon-hd-video"></label</li>
+							  <li><label class="glyphicon glyphicon-subtitles"></label</li>
+							  <li><label class="glyphicon glyphicon-sound-stereo"></label</li>
+							  <li><label class="glyphicon glyphicon-sound-dolby"></label</li>
+							  <li><label class="glyphicon glyphicon-sound-5-1"></label</li>
+							  <li><label class="glyphicon glyphicon-sound-6-1"></label</li>
+							  <li><label class="glyphicon glyphicon-sound-7-1"></label</li>
+							  <li><label class="glyphicon glyphicon-copyright-mark"></label</li>
+							  <li><label class="glyphicon glyphicon-registration-mark"></label</li>
+							  <li><label class="glyphicon glyphicon-cloud-download"></label</li>
+							  <li><label class="glyphicon glyphicon-cloud-upload"></label</li>
+							  <li><label class="glyphicon glyphicon-tree-conifer"></label</li>
+							  <li><label class="glyphicon glyphicon-tree-deciduous"></label</li>
+							  <li><label class="glyphicon glyphicon-cd"></label</li>
+							  <li><label class="glyphicon glyphicon-save-file"></label</li>
+							  <li><label class="glyphicon glyphicon-open-file"></label</li>
+							  <li><label class="glyphicon glyphicon-level-up"></label</li>
+							  <li><label class="glyphicon glyphicon-copy"></label</li>
+							  <li><label class="glyphicon glyphicon-paste"></label</li>
+							  <li><label class="glyphicon glyphicon-alert"></label</li>
+							  <li><label class="glyphicon glyphicon-equalizer"></label</li>
+							  <li><label class="glyphicon glyphicon-king"></label</li>
+							  <li><label class="glyphicon glyphicon-queen"></label</li>
+							  <li><label class="glyphicon glyphicon-pawn"></label</li>
+							  <li><label class="glyphicon glyphicon-bishop"></label</li>
+							  <li><label class="glyphicon glyphicon-knight"></label</li>
+							  <li><label class="glyphicon glyphicon-baby-formula"></label</li>
+							  <li><label class="glyphicon glyphicon-tent"></label</li>
+							  <li><label class="glyphicon glyphicon-blackboard"></label</li>
+							  <li><label class="glyphicon glyphicon-bed"></label</li>
+							  <li><label class="glyphicon glyphicon-apple"></label</li>
+							  <li><label class="glyphicon glyphicon-erase"></label</li>
+							  <li><label class="glyphicon glyphicon-hourglass"></label</li>
+							  <li><label class="glyphicon glyphicon-lamp"></label</li>
+							  <li><label class="glyphicon glyphicon-duplicate"></label</li>
+							  <li><label class="glyphicon glyphicon-piggy-bank"></label</li>
+							  <li><label class="glyphicon glyphicon-scissors"></label</li>
+							  <li><label class="glyphicon glyphicon-bitcoin"></label</li>
+							  <li><label class="glyphicon glyphicon-btc"></label</li>
+							  <li><label class="glyphicon glyphicon-xbt"></label</li>
+							  <li><label class="glyphicon glyphicon-yen"></label</li>
+							  <li><label class="glyphicon glyphicon-jpy"></label</li>
+							  <li><label class="glyphicon glyphicon-ruble"></label</li>
+							  <li><label class="glyphicon glyphicon-rub"></label</li>
+							  <li><label class="glyphicon glyphicon-scale"></label</li>
+							  <li><label class="glyphicon glyphicon-ice-lolly"></label</li>
+							  <li><label class="glyphicon glyphicon-ice-lolly-tasted"></label</li>
+							  <li><label class="glyphicon glyphicon-education"></label</li>
+							  <li><label class="glyphicon glyphicon-option-horizontal"></label</li>
+							  <li><label class="glyphicon glyphicon-option-vertical"></label</li>
+							  <li><label class="glyphicon glyphicon-menu-hamburger"></label</li>
+							  <li><label class="glyphicon glyphicon-modal-window"></label</li>
+							  <li><label class="glyphicon glyphicon-oil"></label</li>
+							  <li><label class="glyphicon glyphicon-grain"></label</li>
+							  <li><label class="glyphicon glyphicon-sunglasses"></label</li>
+							  <li><label class="glyphicon glyphicon-text-size"></label</li>
+							  <li><label class="glyphicon glyphicon-text-color"></label</li>
+							  <li><label class="glyphicon glyphicon-text-background"></label</li>
+							  <li><label class="glyphicon glyphicon-object-align-top"></label</li>
+							  <li><label class="glyphicon glyphicon-object-align-bottom"></label</li>
+							  <li><label class="glyphicon glyphicon-object-align-horizontal"></label</li>
+							  <li><label class="glyphicon glyphicon-object-align-left"></label</li>
+							  <li><label class="glyphicon glyphicon-object-align-vertical"></label</li>
+							  <li><label class="glyphicon glyphicon-object-align-right"></label</li>
+							  <li><label class="glyphicon glyphicon-triangle-right"></label</li>
+							  <li><label class="glyphicon glyphicon-triangle-left"></label</li>
+							  <li><label class="glyphicon glyphicon-triangle-bottom"></label</li>
+							  <li><label class="glyphicon glyphicon-triangle-top"></label</li>
+							  <li><label class="glyphicon glyphicon-console"></label</li>
+							  <li><label class="glyphicon glyphicon-superscript"></label</li>
+							  <li><label class="glyphicon glyphicon-subscript"></label</li>
+							  <li><label class="glyphicon glyphicon-menu-left"></label</li>
+							  <li><label class="glyphicon glyphicon-menu-right"></label</li>
+							  <li><label class="glyphicon glyphicon-menu-down"></label</li>
+							  <li><label class="glyphicon glyphicon-menu-up"></label</li>
+						  </ul> 
+						</div>  
+				      </div>
+				      <div class="modal-footer">
+				      </div>
+				    </div><!-- /.modal-content -->
+				  </div><!-- /.modal-dialog -->
+				</div><!-- /.modal -->
+	        </div>
+	      </div>
+	    </div>
+	</body>
+	 <script type="text/javascript" src="lib/bootstrap/js/jquery-1.11.2.min.js"></script>
+	 <script type="text/javascript" src="lib/bootstrap/js/bootstrap.min.js" ></script>
+	 <script type="text/javascript" src="lib/bootstrap/js/vendor/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js" ></script>
+	 <script type="text/javascript" src="lib/bootstrap/js/vendor/bootstrap-switch-master/js/bootstrap-switch.min.js" ></script>
+	 <script type="text/javascript" src="js/keyboard.js" ></script>
+	 <script type="text/javascript" src="js/keyColorMaker.js" ></script>
+</html>

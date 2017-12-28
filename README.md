@@ -20,6 +20,13 @@
 
 ---
 
+## Chrome-extension
+
+1. [Regex搜尋](https://github.com/leo200149/MyNotePad/tree/master/chrome/RegexSearch)
+2. [隨時練打字](https://github.com/leo200149/MyNotePad/tree/master/chrome/TypingAnyWhere)
+
+---
+
 ## MyBlog
 
 1. [blog](https://github.com/leo200149/MyNotePad/tree/master/myblog)

@@ -1,0 +1,113 @@
+<html ng-app>
+	<head>
+		<script type="text/javascript" src="https://code.angularjs.org/1.2.1/angular.js"></script>
+
+		<!-- Add jQuery library -->
+		<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+
+		<!-- Add mousewheel plugin (this is optional) -->
+		<script type="text/javascript" src="fancybox/lib/jquery.mousewheel-3.0.6.pack.js"></script>
+		<!-- Add fancyBox -->
+		<link rel="stylesheet" href="fancybox/source/jquery.fancybox.css" type="text/css" media="screen" />
+		<script type="text/javascript" src="fancybox/source/jquery.fancybox.pack.js"></script>
+
+		<!-- Optionally add helpers - button, thumbnail and/or media -->
+		<link rel="stylesheet" href="fancybox/source/helpers/jquery.fancybox-thumbs.css" type="text/css" media="screen" />
+		<script type="text/javascript" src="fancybox/source/helpers/jquery.fancybox-thumbs.js"></script>
+		<style>
+			.photoTable>tbody>tr{
+				height:300;
+			}
+			.photoTable>tbody>tr>td{
+				width:200;
+				vertical-align: top;
+			}
+			.photoTable>tbody>tr>td>a>img{
+				width: 200;
+				height: 200;
+			}
+		</style>
+		<script>
+			$(document).ready(function() {
+				$(".fancybox-thumb").fancybox({
+					prevEffect	: 'none',
+					nextEffect	: 'none',
+					helpers	: {
+						title	: {
+							type: 'outside'
+						},
+						thumbs	: {
+							width	: 50,
+							height	: 50
+						}
+					}
+				});
+			});
+		</script>
+		<script>
+			//一排幾張照片
+			var LINE_PHOTO_LENGTH = 3;
+			//相簿連結 https://picasaweb.google.com/data/feed/api/user/<Your Account>/album/<相簿名稱>
+			var API_URL = 'https://picasaweb.google.com/data/feed/api/user/leo200149/album/foodDemo';
+			//注意事項 相簿必須公開
+			//title:照片檔名
+			//desc:照片描述
+			function pagePhotoController($scope,$http){	
+				$scope.photos = [];
+				
+				$http({
+				    url:API_URL,
+				    method:'GET',
+				    params : {
+				      imgmax:720,
+				      alt: 'json-in-script',
+				      callback:'picasaCallback'
+				    },
+				    headers: {
+				        'Content-type': 'application/json'
+				    }
+				}).success(function(data){		
+				  data = data.replace('// API callback','');
+				  data = data.replace('picasaCallback(','');
+				  data = data.replace(');','');
+				  data = jQuery.parseJSON(data);
+				  var photoRow = new Array();
+				  $scope.photos.push(photoRow);
+				  $.each(data.feed.entry, function(){
+				  	if(photoRow.length>=LINE_PHOTO_LENGTH){
+				  		photoRow = new Array();
+				  		$scope.photos.push(photoRow);
+				  	}
+				 	 photoRow.push({
+				 	   id: this.content.src,
+				       src: this.content.src,
+				       title:this.media$group.media$title.$t.replace('.jpg',''),
+				       desc:this.media$group.media$description.$t
+				     });
+				   });	
+			    }).error(function(data){
+			    	console.log(data);
+			    });
+			}
+		</script>
+	</head>
+	<body>
+		<div ng-controller="pagePhotoController">
+			<table class="photoTable">
+				<tbody>
+					<tr ng-repeat="photoRow in photos">
+						<td ng-repeat="photo in photoRow">
+							<a  class="fancybox-thumb" rel="fancybox-thumb" href="{{photo.src}}" title="{{photo.title}}">
+								<img ng-src="{{photo.src}}" alt="" />
+							</a>
+							<span>
+								<h3>{{photo.title}}</h3>
+								{{photo.desc}}
+							</span>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</body>
+</html>
