@@ -4,7 +4,7 @@ const ctx = canvas.getContext("2d");
 const PIN_SIZE = 15;
 const TARGET_SIZE = 150;
 const TARGET_CENTER = { x: 250, y: 275 };
-const FPS = 1000 / 100;
+const FPS = 1000 / 60;
 const WIDTH = canvas.width;
 const HEIGHT = canvas.height;
 const LEVEL = [
@@ -19,21 +19,20 @@ var currentLevel = 0;
 var pinLocation = [];
 var havePinCount = 5;
 var isGameOver = false;
-var events = [];
+
 
 function startRotate() {
     for (var i in pinLocation) {
         pinLocation[i] = (pinLocation[i] + 1) % 360;
     }
     if (!isGameOver) {
+        paintTarget();
         setTimeout(startRotate, 100 / LEVEL[currentLevel].speed);
     }
 }
 
 
 function paintTarget(event) {
-    // 取得 Canvas 元素
-    // 建立繪製物件
     var location = pinLocation.slice();
     ctx.clearRect(0, 0, WIDTH, 570);
 
@@ -48,16 +47,8 @@ function paintTarget(event) {
         paintLine(TARGET_CENTER.x, TARGET_CENTER.y, lineX, lineY, 'black', 3);
     }
     paintHavePin();
-    if (event == null) {
-        event = events.pop();
-    } else {
-        event();
-        event = null;
-    }
-    if (!isGameOver) {
-        setTimeout(function () {
-            paintTarget(event);
-        }, FPS);
+    if (event != null) {
+        setTimeout(event, 100);
     }
 }
 
@@ -95,7 +86,6 @@ function paintHavePin() {
 function initDefaultPin() {
     var level = LEVEL[currentLevel];
     pinLocation = level.defaultLocation.slice();
-    console.log(pinLocation);
     havePinCount = level.pinCount;
     isGameOver = false;
 }
@@ -103,7 +93,6 @@ function initDefaultPin() {
 function checkPinPass() {
     var location = pinLocation.slice();
     location = location.sort(function (a, b) { return a - b; });
-    console.log(location);
     var result = true;
     for (var i = 0; i < location.length; i++) {
         var currentPin = location[i];
@@ -117,7 +106,7 @@ function checkPinPass() {
             var pinY = TARGET_SIZE * Math.sin(radian) + TARGET_CENTER.y;
             if (Math.abs(pinX - currentPinX) < (PIN_SIZE * 2) && Math.abs(pinX - currentPinX) < (PIN_SIZE * 2)) {
                 var l = Math.sqrt(Math.pow(pinX - currentPinX, 2) + Math.pow(pinY - currentPinY, 2));
-                console.log('(' + currentPin + ',' + pin + '),' + '(' + currentPinX + ',' + currentPinY + '),' + '(' + pinX + ',' + pinY + ')' + ',result:' + l);
+                //console.log('(' + currentPin + ',' + pin + '),' + '(' + currentPinX + ',' + currentPinY + '),' + '(' + pinX + ',' + pinY + ')' + ',result:' + l);
                 if (l < (PIN_SIZE * 2)) {
                     result = false;
                     break;
@@ -140,15 +129,17 @@ function click() {
     havePinCount--;
     pinLocation.push(90);
     if (!checkPinPass()) {
-        events.push(function () {
-            isGameOver = true;
+        isGameOver = true;
+        clearAllTimeout();
+        paintTarget(function () {
             document.getElementsByTagName('body')[0].onclick = null;
             alert('GAME OVER!');
             init();
         });
     } else if (havePinCount <= 0) {
-        events.push(function () {
-            isGameOver = true;
+        isGameOver = true;
+        clearAllTimeout();
+        paintTarget(function () {
             currentLevel++;
             if (currentLevel <= LEVEL.length) {
                 alert('YOU WIN! START NEXT LEVEL!');
@@ -164,7 +155,6 @@ function init() {
     clearAllTimeout();
     document.getElementsByTagName('body')[0].onclick = click;
     initDefaultPin();
-    paintTarget();
     startRotate();
 }
 
