@@ -17,6 +17,7 @@
 1. [大盤象棋](https://github.com/leo200149/MyNotePad/tree/master/javascript/Chess)
 2. [鍵盤著色器](https://leo200149.github.io/MyNotePad/javascript/KeyColorMaker/index.html)
 3. [相簿Demo](https://leo200149.github.io/MyNotePad/javascript/GooglePhotoModuleAngular/index.html)
+4. [相簿Demo](https://leo200149.github.io/MyNotePad/javascript/pin-game/index.html)
 
 ---
 
