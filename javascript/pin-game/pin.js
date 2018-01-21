@@ -4,9 +4,9 @@ const ctx = canvas.getContext("2d");
 const PIN_SIZE = 15;
 const TARGET_SIZE = 150;
 const TARGET_CENTER = { x: 250, y: 275 };
-const FPS = 1000 / 60;
+const FPS = 1000 / 100;
 const WIDTH = canvas.width;
-const HEIGHT = canvas.HEIGHT;
+const HEIGHT = canvas.height;
 const LEVEL = [
     { speed: 10, pinCount: 5, defaultLocation: [0, 60, 120, 180, 240, 300] },
     { speed: 10, pinCount: 8, defaultLocation: [0, 30, 90, 120, 180, 210, 270, 300] },
