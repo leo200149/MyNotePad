@@ -1,12 +1,14 @@
 
 const canvas = document.getElementById("myCanvas");
 const ctx = canvas.getContext("2d");
-const PIN_SIZE = 15;
-const TARGET_SIZE = 150;
-const TARGET_CENTER = { x: 250, y: 275 };
-const FPS = 1000 / 60;
-const WIDTH = canvas.width;
-const HEIGHT = canvas.height;
+const FPS = 1000 / 30;
+const LINE_SIZE = 3;
+const DEFAULT_WIDTH = 500;
+const DEFAULT_HEIGHT= 700;
+const DEFAULT_PIN_SIZE = 15;
+const DEFAULT_TARGET_SIZE = 150;
+const DEFAULT_HAVE_PIN_Y = 570;
+const DEFAULT_PIN_LINE_SIZE = 30;
 const LEVEL = [
     { speed: 10, pinCount: 5, defaultLocation: [0, 60, 120, 180, 240, 300] },
     { speed: 10, pinCount: 8, defaultLocation: [0, 30, 90, 120, 180, 210, 270, 300] },
@@ -19,6 +21,14 @@ var currentLevel = 0;
 var pinLocation = [];
 var havePinCount = 5;
 var isGameOver = false;
+var WIDTH = DEFAULT_WIDTH;
+var HEIGHT = DEFAULT_HEIGHT;
+var SCALE = HEIGHT / DEFAULT_HEIGHT;
+var TARGET_CENTER = { x: WIDTH/2, y: HAVE_PIN_Y/2 };
+var PIN_SIZE = DEFAULT_PIN_SIZE * SCALE;
+var TARGET_SIZE = DEFAULT_TARGET_SIZE * SCALE;
+var HAVE_PIN_Y = DEFAULT_HAVE_PIN_Y * SCALE;
+var PIN_LINE_SIZE = DEFAULT_PIN_LINE_SIZE * SCALE;
 
 
 function startRotate() {
@@ -31,10 +41,9 @@ function startRotate() {
     }
 }
 
-
 function paintTarget(event) {
     var location = pinLocation.slice();
-    ctx.clearRect(0, 0, WIDTH, 570);
+    ctx.clearRect(0, 0, WIDTH, HAVE_PIN_Y);
 
     paintArc(TARGET_CENTER.x, TARGET_CENTER.y, PIN_SIZE, 5, 'black', true);
     for (var i = 0; i < location.length; i++) {
@@ -43,8 +52,8 @@ function paintTarget(event) {
         var pinY = TARGET_SIZE * Math.sin(radian) + TARGET_CENTER.y;
         var lineX = (TARGET_SIZE - PIN_SIZE) * Math.cos(radian) + TARGET_CENTER.x;
         var lineY = (TARGET_SIZE - PIN_SIZE) * Math.sin(radian) + TARGET_CENTER.y;
-        paintArc(pinX, pinY, PIN_SIZE, 3, 'black', false);
-        paintLine(TARGET_CENTER.x, TARGET_CENTER.y, lineX, lineY, 'black', 3);
+        paintArc(pinX, pinY, PIN_SIZE, LINE_SIZE, 'black', false);
+        paintLine(TARGET_CENTER.x, TARGET_CENTER.y, lineX, lineY, 'black', LINE_SIZE);
     }
     paintHavePin();
     if (event != null) {
@@ -74,12 +83,12 @@ function paintLine(x, y, toX, toY, c, l) {
 }
 
 function paintHavePin() {
-    ctx.clearRect(0, 570, WIDTH, 200);
+    ctx.clearRect(0, HAVE_PIN_Y, WIDTH, HEIGHT-HAVE_PIN_Y);
     if (havePinCount > 0) {
-        paintLine(250, 570, 250, 600, 'black', 3);
+        paintLine(TARGET_CENTER.x, HAVE_PIN_Y, TARGET_CENTER.x, HAVE_PIN_Y+PIN_LINE_SIZE, 'black', LINE_SIZE);
     }
     for (var i = 0; i < havePinCount; i++) {
-        paintArc(250, 600 + (i * PIN_SIZE * 2 + 10), PIN_SIZE, 3, 'black', false);
+        paintArc(TARGET_CENTER.x, HAVE_PIN_Y+PIN_LINE_SIZE + (i * PIN_SIZE * 2), PIN_SIZE, LINE_SIZE, 'black', false);
     }
 }
 
@@ -151,9 +160,28 @@ function click() {
     }
 }
 
+function resizeCanvas() {
+    WIDTH = canvas.width = window.innerWidth;
+    HEIGHT = canvas.height = window.innerHeight;
+    SCALE = HEIGHT / DEFAULT_HEIGHT;
+    if(WIDTH < DEFAULT_WIDTH){
+        SCALE *= WIDTH/DEFAULT_WIDTH;
+    }
+    PIN_SIZE = DEFAULT_PIN_SIZE * SCALE;
+    TARGET_SIZE = DEFAULT_TARGET_SIZE * SCALE;
+    HAVE_PIN_Y = DEFAULT_HAVE_PIN_Y * SCALE;
+    PIN_LINE_SIZE = DEFAULT_PIN_LINE_SIZE * SCALE;
+    TARGET_CENTER.x = WIDTH / 2;
+    TARGET_CENTER.y = HAVE_PIN_Y / 2;
+    console.log(TARGET_CENTER);
+}
+
 function init() {
     clearAllTimeout();
+    window.removeEventListener('resize', resizeCanvas, false);
+    window.addEventListener('resize', resizeCanvas, false);
     document.getElementsByTagName('body')[0].onclick = click;
+    resizeCanvas();
     initDefaultPin();
     startRotate();
 }
