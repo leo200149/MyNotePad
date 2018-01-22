@@ -1,7 +1,6 @@
 
 const canvas = document.getElementById("myCanvas");
 const ctx = canvas.getContext("2d");
-const FPS = 1000 / 30;
 const LINE_SIZE = 3;
 const DEFAULT_WIDTH = 500;
 const DEFAULT_HEIGHT= 700;
@@ -55,7 +54,6 @@ function paintTarget(event) {
         paintArc(pinX, pinY, PIN_SIZE, LINE_SIZE, 'black', false);
         paintLine(TARGET_CENTER.x, TARGET_CENTER.y, lineX, lineY, 'black', LINE_SIZE);
     }
-    paintHavePin();
     if (event != null) {
         setTimeout(event, 100);
     }
@@ -137,6 +135,7 @@ function clearAllTimeout() {
 function click() {
     havePinCount--;
     pinLocation.push(90);
+    paintHavePin();
     if (!checkPinPass()) {
         isGameOver = true;
         clearAllTimeout();
@@ -183,6 +182,8 @@ function init() {
     document.getElementsByTagName('body')[0].onclick = click;
     resizeCanvas();
     initDefaultPin();
+    paintTarget();
+    paintHavePin();
     startRotate();
 }
 
