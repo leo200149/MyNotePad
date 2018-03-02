@@ -13,7 +13,7 @@ categories: [android]
 
 就是寫下自己想做什麼？做成什麼樣子的app，而後開始慢慢地完成它，算是個人十分寶貴的一份記錄。
 
-[ppt連結](https://docs.google.com/file/d/0B4G4rpxB8MHZYndWaXdnTWVMMlE/preview)
+[ppt連結](https://docs.google.com/file/d/0B4G4rpxB8MHZYndWaXdnTWVMMlE/preview)
 
 至於圖片的部份，在剛開始的版本是這樣的。
 
