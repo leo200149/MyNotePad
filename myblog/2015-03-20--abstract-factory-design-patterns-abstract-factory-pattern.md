@@ -15,7 +15,7 @@ categories: [factory, DesignPattern, java, abstract]
 
 ## Abstract Factory 抽象工廠模式
 
-前面的[工廠方法](http://hycleo.logdown.com/posts/257303--factory-method-design-pattern-factory-method-pattern)是針對一種物件在做處理，那假如我想要拿到的是一組多個物件呢？
+工廠方法是針對一種物件在做處理，那假如我想要拿到的是一組多個物件呢？
 
 你可能會說「那就多寫幾組工廠方法囉！」，你說的沒錯，就是多定義幾組抽象的工廠方法，多個物件的工廠方法集合在一個工廠當中，這就是抽象工廠，利用多個工廠方法寫一個介面，實作此介面來完成相對應的一套物件，適合用於需要可以方便整組物件一起抽換的情境。
 

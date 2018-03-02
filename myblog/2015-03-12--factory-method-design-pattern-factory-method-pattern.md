@@ -30,7 +30,9 @@ categories: [java, DesignPattern, FactoryMethod]
     2.物件實作
     3.工廠超類別-內含用以產生物件的抽象方法
     4.工廠子類別-實作產生物件的方法
-![](https://lh4.googleusercontent.com/-gvxiaqymC3U/VQHb_Z0OklI/AAAAAAAADY4/RPWxh_K3aXc/w575-h362-no/Untitled.png)
+
+![img](https://lh4.googleusercontent.com/-gvxiaqymC3U/VQHb_Z0OklI/AAAAAAAADY4/RPWxh_K3aXc/w575-h362-no/Untitled.png)
+
 直接來看範例吧
 
 ### 舉例說明
