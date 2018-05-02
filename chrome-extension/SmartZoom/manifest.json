@@ -1,0 +1,41 @@
+{
+  "name": "Smart Zoom",
+  "description": "You can use dobule click to smart zoom like mac magic mouse.",
+  "version": "0.1",
+  "permissions": [
+    "tabs",
+    "http://*/*",
+    "https://*/*"
+  ],
+  "background": {
+    "scripts": [
+      "jquery-1.9.0.min.js",
+      "smartZoom.js"
+    ]
+  },
+  "icons":{
+    "16": "icon.png",
+    "48": "icon.png",
+    "128": "icon.png"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "http://*/*",
+        "https://*/*"
+      ],
+      "css": [
+        "smartZoomApp.css"
+      ],
+      "js": [
+        "jquery-1.9.0.min.js",
+        "jquery.zoomooz.js",
+        "smartZoomApp.js"
+      ]
+    }
+  ],
+  "browser_action": {
+    "default_icon": "icon.png"
+  },
+  "manifest_version": 2
+}
