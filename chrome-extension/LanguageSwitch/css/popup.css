@@ -1,0 +1,41 @@
+body {
+    overflow: hidden;
+    margin: 5px;
+    background: white;
+    width:150px;
+}
+.select {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+.select select {
+    font-family: 'Arial';
+    display: inline-block;
+    width: 100%;
+    cursor: pointer;
+    padding: 5px 8px;
+    outline: 0;
+    border: 1px outset #fff;
+    border-bottom: 3px outset #0d98fe;
+    border-radius: 0px;
+    background: #ffffff;
+    color: #000000;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+.select select::-ms-expand {
+    display: none;
+}
+.select select:hover, .select select:focus {
+    color: #000000;
+    background: #e0e8f5;
+}
+.select select:disabled {
+    opacity: 0.4;
+    pointer-events: none;
+}
+.select select:disabled {
+    border-top-color: #cccccc;
+}
