@@ -1,7 +1,7 @@
-img,video,.hiddenImg.hiddenIframe{
+.hideImageBody img,.hideImageBody video,.hideImageBody .hiddenImg, .hideImageBody.hiddenIframe{
     filter:blur(1rem);
 }
-img:hover,video:hover,.hiddenImg:hover,.hiddenIframe:hover{
+.hideImageBody img:hover,.hideImageBody video:hover,.hideImageBody .hiddenImg:hover,.hideImageBody .hiddenIframe:hover{
     filter:blur(0);
 }
 .noAfter::after{

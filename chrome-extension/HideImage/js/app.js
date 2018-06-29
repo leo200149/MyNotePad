@@ -16,7 +16,6 @@ $(document).ready(function () {
         });
         canHide = true;
     }
-
     function checkIframeIsCross(iframe) {
         var result = false;
         try {
@@ -27,13 +26,19 @@ $(document).ready(function () {
         return result;
     }
 
-    hideImages();
-    $('a,button,input').bind('click', function () {
-        canHide = false;
-        setTimeout(hideImages, 1000);
-    });
-    $(window).scroll(function () {
-        canHide = false;
-        setTimeout(hideImages, 1000);
-    });
+    function init(){
+        $('body').addClass('hideImageBody');
+        hideImages();
+        $('a,button,input').bind('click', function () {
+            canHide = false;
+            setTimeout(hideImages, 1000);
+        });
+        $(window).scroll(function () {
+            canHide = false;
+            setTimeout(hideImages, 1000);
+        });
+    }
+    if(window.hideSwitchValue){
+        init();
+    }
 });
