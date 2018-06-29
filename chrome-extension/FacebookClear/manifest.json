@@ -1,0 +1,34 @@
+{
+  "name": "Facebook Clear",
+  "description": "Let your facebook see's more clear",
+  "version": "0.1",
+  "permissions": [
+    "tabs",
+    "http://www.facebook.com/*",
+    "https://www.facebook.com/*"
+  ],
+  "icons":{
+    "16": "icon.png",
+    "48": "icon.png",
+    "128": "icon.png"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "http://www.facebook.com/*",
+        "https://www.facebook.com/*"
+      ],
+      "css": [
+        "css/clearFacebook.css"
+      ],
+      "js": [
+        "js/jquery-1.9.0.min.js",
+        "js/clear.js"
+      ]
+    }
+  ],
+  "browser_action": {
+    "default_icon": "icon.png"
+  },
+  "manifest_version": 2
+}

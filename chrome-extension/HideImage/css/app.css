@@ -1,0 +1,9 @@
+img,video,.hiddenImg.hiddenIframe{
+    filter:blur(1rem);
+}
+img:hover,video:hover,.hiddenImg:hover,.hiddenIframe:hover{
+    filter:blur(0);
+}
+.noAfter::after{
+    display: none;
+}

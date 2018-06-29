@@ -1,0 +1,25 @@
+@import url(//fonts.googleapis.com/earlyaccess/notosanstc.css);
+.UFICommentStickerAttachment,p,div,span,a,table,tr,td,label,h1,h2,h3,h4,h5{
+    font-family: 'Noto Sans TC';
+    color:black;
+}
+
+i,img,video{
+    filter:blur(1.5rem);
+}
+i:hover,img:hover,video:hover{
+    filter:blur(0);
+}
+
+#contentArea{
+    transform:scale(1.3);
+}
+
+.noAfter{
+    font-family: 'Noto Sans TC';
+    color:black;
+}
+
+.noAfter::after{
+    display: none;
+}
