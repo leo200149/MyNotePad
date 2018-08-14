@@ -2,3 +2,6 @@ mark{
     background-color:yellow;
     color:black;
 }
+.mark-current{
+    background-color:orange;
+}

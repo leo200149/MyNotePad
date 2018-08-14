@@ -31,6 +31,7 @@
       ],
       "js": [
         "js/jquery-1.9.0.min.js",
+        "js/jquery.mark.min.js",
         "js/background.js"
       ]
     }
