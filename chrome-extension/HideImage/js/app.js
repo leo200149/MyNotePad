@@ -8,7 +8,7 @@ $(document).ready(function () {
                 element.addClass('hiddenImg');
             }
         });
-        $('iframe:not(hiddenIframe)').each(function (iframe) {
+        $('iframe:not(hiddenIframe)').each(function (index,iframe) {
             if (checkIframeIsCross(iframe)) {
                 $(this).addClass('hiddenIframe');
                 $(this).hide();
