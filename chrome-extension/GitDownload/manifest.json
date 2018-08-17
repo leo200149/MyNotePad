@@ -1,7 +1,7 @@
 {
   "name": "GitDownload",
-  "description": "this is git download folder plugin",
-  "version": "1.0.1",
+  "description": "this is github download folder plugin",
+  "version": "1.0.0",
   "permissions": [
     "tabs",
     "http://*.github.com/*",
