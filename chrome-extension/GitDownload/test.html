@@ -1,0 +1,19 @@
+<html>
+    <body>
+        <input type="text" id="gitUrl" value="https://github.com/MinhasKamal/DownGit/tree/master/app/home"/>
+        <button id="downloadButton">download</button>
+        <script src="jquery-1.9.0.min.js"></script>
+        <script src="jszip.js"></script>
+        <script src="filesaver.min.js"></script>
+        <script src="app.js"></script>
+        <script>
+            $('#downloadButton').bind('click',function(){
+                var parameter = {
+                    url: $('#gitUrl').val()
+                };
+                var gd = downloadGit();
+                gd.downloadZippedFiles(parameter);
+            });
+        </script>
+    </body>
+</html>
