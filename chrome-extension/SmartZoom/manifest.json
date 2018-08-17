@@ -1,7 +1,7 @@
 {
   "name": "Smart Zoom",
   "description": "You can use dobule click to smart zoom like mac magic mouse.",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "permissions": [
     "tabs",
     "http://*/*",
