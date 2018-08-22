@@ -1,7 +1,7 @@
 {
-  "name": "Typing Every Where",
-  "description": "You can select every word to start typing in any page,any time.",
-  "version": "0.1",
+  "name": "Typing Anywhere",
+  "description": "You can select any word to start typing in any page,any time.",
+  "version": "1.0.0",
   "permissions": [
     "contextMenus",
     "tabs",
