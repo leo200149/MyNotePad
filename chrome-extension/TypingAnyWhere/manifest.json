@@ -6,11 +6,13 @@
     "contextMenus",
     "tabs",
     "http://*/*",
-    "https://*/*"
+    "https://*/*",
+    "file://*/*"
   ],
   "background": {
     "scripts": [
       "jquery-1.9.0.min.js",
+      "storage.js",
       "typing.js"
     ]
   },
@@ -23,7 +25,8 @@
     {
       "matches": [
         "http://*/*",
-        "https://*/*"
+        "https://*/*",
+        "file://*/*"
       ],
       "css": [
         "jquery.fancybox.min.css",
@@ -32,7 +35,8 @@
       "js": [
         "jquery-1.9.0.min.js",
         "jquery.fancybox.min.js",
-        "popup.js"
+        "storage.js",
+        "typing-content.js"
       ]
     }
   ],

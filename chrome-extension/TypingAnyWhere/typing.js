@@ -1,28 +1,24 @@
 $(document).ready(function () {
   var selectText = null;
 
-  chrome.extension.onRequest.addListener(function (request, sender, sendResponse) {
-    switch (request.message) {
-      case 'setText':
-        window.selectText = request.data
-        break;
-    }
-  });
-
   var startClick = function (info, tab) {
     chrome.tabs.executeScript({
       code: "getSelectionText();"
     }, function (selection) {
       selectText = selection;
+      var value = $('<textarea>');
+      value.text(selectText);
+      Storage.setValue('typingSelectText', value.text());
       alertTypingBoard();
     });
   };
 
   var alertTypingBoard = function () {
-    var value = $('<textarea>');
-    value.text(selectText);
-    chrome.tabs.executeScript({
-      code: "popUpTypingBoard('"+value.text()+"');"
+    chrome.windows.create({
+      url: chrome.runtime.getURL("popup.html"),
+      type: "popup",
+      height: 600,
+      width: 800
     });
   };
 
