@@ -8,12 +8,13 @@
   background-repeat: no-repeat;
   background-size: 50px 50px;
   z-index: 999;
+  opacity:0.9;
 }
 .popupBlock{ 
   position: fixed;
   right: 100px;
   bottom: 100px;
-  width: 300px;
+  width: 80%;
   height: 200px;
   background: #ddd;
   display: none;
@@ -21,9 +22,24 @@
   z-index: 998;
   padding: 10px;
   box-shadow:4px 4px 3px rgba(20%,20%,40%,0.5);
+  opacity:0.9;
 }
 .emojiBtn {
-  width: 280px;
+  width: 18%;
   height:30px;
   float: left;
+  overflow: hidden;
+  box-shadow:4px 4px 3px rgba(20%,20%,40%,0.5);
+  margin:5px;
+}
+.emojiBtn index{
+  float:left;
+  width:20%;
+}
+.emojiBtn span{
+  float:left;
+  width:80%;
+}
+.searchEmoji{
+  width:100%;
 }

@@ -23,12 +23,23 @@
       ],
       "js": [
         "jquery-1.9.0.min.js",
+        "storage.js",
         "app.js"
-      ]
+      ],
+      "all_frames": true
     }
   ],
   "browser_action": {
     "default_icon": "icon.png"
+  },
+  "commands": {
+    "_execute_browser_action": {  
+      "suggested_key": {  
+        "default": "Ctrl+Shift+E",  
+        "windows": "Ctrl+Shift+E",   
+        "mac": "Ctrl+Shift+E"
+      }
+    }  
   },
   "web_accessible_resources": ["icon.png"],
   "manifest_version": 2

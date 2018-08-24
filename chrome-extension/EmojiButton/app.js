@@ -1,8 +1,9 @@
 $(document).ready(function() {
 
-    var currentInput;
+    var currentInput,searchEmoji;
 
-    const emojis =         [{value:"ლ(・ω・ლ)"},
+    const emojis =         
+    [{value:"ლ(・ω・ლ)"},
     {value:"╮(╯◇╰)╭"},
     {value:"(=￣ω￣=)"},
     {value:"╭(﹊∩∩﹊)╮"},
@@ -114,52 +115,91 @@ $(document).ready(function() {
     {value:"\（^∀^）メ（^∀^）ノ"},
     {value:"  (((*°▽° *）八（* °▽°*)))♪"},
     {value:"Σ(・ω・ノ)ノ ┴─┴"}];
+    
+    const historyEmojis = [];
+
+    function addHistoryEmojis(index,emoji){
+        if(!historyEmojis.includes(emoji)){
+            historyEmojis.push(emoji);
+            if(historyEmojis.length>30){
+                historyEmojis.shift();
+            }
+            var emojiBtn = createEmojiBtn('hh'+index,{value:emoji});
+            $('.popupBlock').append(emojiBtn);
+        }
+    }
+
+    function createEmojiBtn(title,emoji){
+        var emojiBtn = $('<button>');
+        emojiBtn.addClass('emojiBtn');
+        emojiBtn.append('<index>'+title+'</index>'+'<span>'+emoji.value+'</span>');
+        emojiBtn.bind('click',function(){
+            if(currentInput!=null){
+                currentInput.val(currentInput.val()+$(this).find('span').text());
+                searchEmoji.focus();
+            }
+        });
+        return emojiBtn;
+    }
+
 
     window.initEmojiBtn = function() {
         var popupBlock = $('<div>');
         popupBlock.addClass('popupBlock');
-        for(var i = 0;i<emojis.length;i++){
-            var emoji = emojis[i];
-            var emojiBtn = $('<button>');
-            emojiBtn.addClass('emojiBtn');
-            emojiBtn.text(emoji.value);
-            emojiBtn.bind('click',function(){
+        var searchDiv = $('<div>');
+        searchEmoji = $('<input type="text" class="searchEmoji"/>');
+        searchEmoji.bind('keyup',function(e){
+            if(e.keyCode == 13){
                 if(currentInput!=null){
-                    currentInput.val(currentInput.val()+$(this).text());
+                    var emojiBtn = $('.emojiBtn:visible:first');
+                    var emoji = emojiBtn.find('span').text();
+                    var index = emojiBtn.find('index').text();
+                    currentInput.val(currentInput.val()+emoji);
+                    addHistoryEmojis(index,emoji);
+                }
+            }else {
+                $('.emojiBtn').hide();
+                $('.emojiBtn:contains('+$(this).val()+')').show();
+            }
+        });
+        $(document).keyup(function(e) {
+            if (e.keyCode === 27){
+                $('.popupBlock').hide();
+                if(currentInput!=null){
                     currentInput.focus();
                 }
-            });
+            }
+        });
+
+        searchDiv.append(searchEmoji);
+        popupBlock.append(searchDiv);
+        for(var i = 0;i<emojis.length;i++){
+            var emoji = emojis[i];
+            var emojiBtn = createEmojiBtn(i+1,emoji);
             popupBlock.append(emojiBtn);
         }
-
-
-        var emojiGroupBtn = $('<button>');
-        emojiGroupBtn.addClass('emojiGroupBtn');
-        emojiGroupBtn.css('background-image','url('+chrome.extension.getURL('icon.png')+')');
-        emojiGroupBtn.bind('click',function(e){
-            popup();
-            e.preventDefault();
-            return false;
-        });
         $('body').prepend(popupBlock);
-        $('body').prepend(emojiGroupBtn);
-        $('body').bind('click',function(){
-            $('.popupBlock').hide();
-        });
     };
 
-    
-    $('input:text:visible').bind('focus',function(){
-        currentInput = $(this);
+    $('input:text,textarea,area').bind('keydown',function(e){
+        if(e.altKey && e.which === 49) {
+            currentInput = $(this);
+            popup();
+        }
     });
 
-    function popup(){
+    window.popup = function(){
         if($('.popupBlock').is(':visible')){
+            if(currentInput!=null){
+                currentInput.focus();
+            }
             $('.popupBlock').hide();
         }else{
             $('.popupBlock').show();
+            $('.searchEmoji').val('');
+            $('.searchEmoji').focus();
         }
-    }
+    };
 
     initEmojiBtn();
 });
