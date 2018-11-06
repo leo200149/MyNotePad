@@ -107,8 +107,8 @@ pwd:mypassword
 建立資料庫
 
 ```SQL
-CREATE DATABALSE testdb;
-CREATE DATABALSE company;
+CREATE DATABASE testdb;
+CREATE DATABASE company;
 ```
 
 切換至`company`資料庫並建立表格
