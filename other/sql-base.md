@@ -97,7 +97,7 @@ user:postgres
 pwd:mypassword
 ```
 
-### sql語法
+### SQL語法
 
 1. `CRUD`新增/查詢/修改/刪除
 2. 修改刪除等動作需謹慎，先查後改。
@@ -107,8 +107,8 @@ pwd:mypassword
 建立資料庫
 
 ```SQL
-CREATE DATABALSE testdb
-CREATE DATABALSE company
+CREATE DATABALSE testdb;
+CREATE DATABALSE company;
 ```
 
 切換至`company`資料庫並建立表格
@@ -194,7 +194,7 @@ SELECT * FROM customer;
 
 ```SQL
 SELECT * FROM customer
-WHERE code = 'CENTC'
+WHERE code = 'CENTC';
 ```
 
 多重過濾條件
@@ -209,14 +209,14 @@ AND id IN (1,2,3);
 單獨查詢欄位
 
 ```SQL
-SELECT code,name,address FROM customer
+SELECT code,name,address FROM customer;
 ```
 
 查詢排序
 
 ```SQL
 SELECT * FROM customer
-ORDER BY ID DESC
+ORDER BY ID DESC;
 ```
 
 ### UPDATE:修改
@@ -225,13 +225,13 @@ ORDER BY ID DESC
 
 ```SQL
 UPDATE product SET cost = 30
-WHERE id = 1
+WHERE id = 1;
 ```
 
 更新所有商品幣別
 
 ```SQL
-UPDATE product SET currency = 'USD'
+UPDATE product SET currency = 'USD';
 ```
 
 ### DELETE:刪除
@@ -241,17 +241,17 @@ UPDATE product SET currency = 'USD'
 ```SQL
 DELETE FROM order_detail
 WHERE order_id = 2 
-AND product_id = 2
+AND product_id = 2;
 ```
 
 刪除無用表格
 ```SQL
-DROP TABLE test
+DROP TABLE test;
 ```
 
 刪除無用資料庫
 ```SQL
-DROP DATABASE testdb
+DROP DATABASE testdb;
 ```
 
 ## 進階SQL
@@ -277,7 +277,7 @@ SELECT
 FROM orders o
 JOIN customer c ON c.code = o.customer_code
 JOIN order_detail od ON od.order_id = o.id
-JOIN product p ON p.id = od.product_id
+JOIN product p ON p.id = od.product_id;
 ```
 
 計算訂單總金額
@@ -289,5 +289,5 @@ SELECT
 FROM order_detail od
 JOIN product p ON p.id = od.product_id
 GROUP BY od.order_id
-ORDER BY od.order_id
+ORDER BY od.order_id;
 ```
