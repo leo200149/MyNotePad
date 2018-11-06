@@ -8,7 +8,7 @@
 
 ## 資料正規化
 
-1. 將資料拆分整理成表格
+1. 將資料拆分整理成表格
 
 ### 原始資料
 
@@ -64,20 +64,20 @@ LINOD|保信人壽|黃雅玲|董事長|台北市忠孝東路四段32號|(02) 968
 3|2|60
 3|3|24
 
-## SQL基礎
+## SQL基礎
 
-### 參考資料
+### 參考資料
 
-1. [DOCKER簡介](https://philipzheng.gitbooks.io/docker_practice/content/introduction/what.html)
+1. [DOCKER 簡介](https://philipzheng.gitbooks.io/docker_practice/content/introduction/what.html)
 2. [DOCKER INSTALL](https://docs.docker.com/docker-for-mac/install/)
 3. [DOCKER HUB](https://hub.docker.com/)
 4. [POSTGRES IMAGE](https://hub.docker.com/_/postgres/)
 
-### 練習環境
+### 練習環境
 
 1. 練習`postgresql`資料庫
-2. 用`docker`架設 `postgresql server`
-3. 用`inteilj ide`內建資料庫`client gui`做練習
+2. 用`docker`架設 `postgresql server`
+3. 用`inteilj ide`內建資料庫`client gui`做練習
 
 參考指令
 
@@ -97,21 +97,21 @@ user:postgres
 pwd:mypassword
 ```
 
-### sql語法
+### sql語法
 
-1. `CRUD`新增/查詢/修改/刪除
-2. 修改刪除等動作需謹慎，先查後改。
+1. `CRUD`新增/查詢/修改/刪除
+2. 修改刪除等動作需謹慎，先查後改。
 
 ### CREATE:建立新增
 
-建立資料庫
+建立資料庫
 
 ```SQL
 CREATE DATABALSE testdb
 CREATE DATABALSE company
 ```
 
-切換至`company`資料庫並建立表格
+切換至`company`資料庫並建立表格
 
 ```SQL
 CREATE TABLE customer
@@ -154,7 +154,7 @@ CREATE TABLE test
 );
 
 ```
-
+
 新增資料
 
 ```SQL
@@ -182,7 +182,7 @@ INSERT INTO order_detail(order_id,product_id,counts) VALUES (3,2,60);
 INSERT INTO order_detail(order_id,product_id,counts) VALUES (3,3,24);
 ```
 
-### READ:查詢
+### READ:查詢
 
 查客戶
 
@@ -219,7 +219,7 @@ SELECT * FROM customer
 ORDER BY ID DESC
 ```
 
-### UPDATE:修改
+### UPDATE:修改
 
 更新商品金額
 
@@ -228,15 +228,15 @@ UPDATE product SET cost = 30
 WHERE id = 1
 ```
 
-更新所有商品幣別
+更新所有商品幣別
 
 ```SQL
 UPDATE product SET currency = 'USD'
 ```
 
-### DELETE:刪除
+### DELETE:刪除
 
-刪除訂單及明細
+刪除訂單及明細
 
 ```SQL
 DELETE FROM order_detail
@@ -258,7 +258,7 @@ DROP DATABASE testdb
 
 ### 多表聯合查詢
 
-查回原始資料格式
+查回原始資料格式
 
 ```SQL
 SELECT 
