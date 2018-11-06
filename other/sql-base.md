@@ -90,7 +90,7 @@ docker run -d --name postgres-test \
 -e POSTGRES_PASSWORD=mypassword postgres
 ```
 
-起來後的地址及登入資訊
+起來後的地址及登入資訊
 ```
 jdbc:postgresql://localhost:5432/postgres
 user:postgres
