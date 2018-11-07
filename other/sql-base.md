@@ -66,7 +66,7 @@ LINOD|保信人壽|黃雅玲|董事長|台北市忠孝東路四段32號|(02) 968
 
 ## SQL基礎
 
-### 參考資料
+### 練習環境搭建參考資料
 
 1. [DOCKER 簡介](https://philipzheng.gitbooks.io/docker_practice/content/introduction/what.html)
 2. [DOCKER INSTALL](https://docs.docker.com/docker-for-mac/install/)
