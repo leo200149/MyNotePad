@@ -1,0 +1,42 @@
+{
+  "name": "AutoPlay AniGamer",
+  "description": "AutoPlay AniGamer",
+  "version": "0.1",
+  "permissions": [
+    "tabs",
+    "http://ani.gamer.com.tw/*",
+    "https://ani.gamer.com.tw/*"
+  ],
+  "icons":{
+    "16": "icon.png",
+    "48": "icon.png",
+    "128": "icon.png"
+  },
+  "background": {
+    "scripts": [
+      "js/jquery-1.9.0.min.js",
+      "js/background.js"
+    ]
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "http://ani.gamer.com.tw/*",
+        "https://ani.gamer.com.tw/*"
+      ],
+      "css": [
+        "css/app.css"
+      ],
+      "js": [
+        "js/jquery-1.9.0.min.js",
+        "js/storage.js",
+        "js/app.js"
+      ]
+    }
+  ],
+  "browser_action": {
+    "default_icon": "icon.png",
+    "default_title": "Hide Image"
+  },
+  "manifest_version": 2
+}
