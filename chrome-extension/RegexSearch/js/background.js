@@ -14,7 +14,7 @@ $(document).ready(function () {
         body.unmark();
         if (regexPattern != null && regexPattern.length > 0 && checkPattern(regexPattern)) {
             var regex = new RegExp('(' + regexPattern + ')', 'gi');
-            body.markRegExp(regex);
+            body.markRegExp(regex,{acrossElements:true});
             markElements = $('mark');
             selectElement(markElements[0]);
         }
